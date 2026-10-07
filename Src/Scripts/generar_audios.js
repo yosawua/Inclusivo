@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
 // Puedes cambiar este ID por la voz en español que más te guste de tu cuenta
-const voiceId = 'kcQkGnn0HAT2JRDQ4Ljp'; 
+const voiceId = 'kcQkGnn0HAT2JRDQ4Ljp';
 
 const figuras = [
     { pista: '001', texto: '¡Cuadrado!' },
