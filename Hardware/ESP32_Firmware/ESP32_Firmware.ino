@@ -26,7 +26,7 @@ const char dashboard_html[] PROGMEM = R"rawliteral(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caja Sensorial | Debugger</title>
+    <title>Inclusivio | Debugger</title>
     <style>
         body { background-color: #0d0d0d; color: #ececec; font-family: 'Consolas', 'Courier New', monospace; text-align: center; margin: 0; padding: 20px; }
         h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 2px; }
@@ -39,17 +39,17 @@ const char dashboard_html[] PROGMEM = R"rawliteral(
 </head>
 <body>
     <h1><span class="status-dot"></span>Debugger Físico</h1>
-    <p>Monitor de telemetría de sensores en tiempo real</p>
+    <p>Monitor de telemetría de Inclusivio en tiempo real</p>
     
     <div class="grid">
-        <div class="slot" id="s0">Figura 1</div>
-        <div class="slot" id="s1">Figura 2</div>
-        <div class="slot" id="s2">Figura 3</div>
-        <div class="slot" id="s3">Figura 4</div>
-        <div class="slot" id="s4">Figura 5</div>
-        <div class="slot" id="s5">Figura 6</div>
-        <div class="slot" id="s6">Figura 7</div>
-        <div class="slot" id="s7">Figura 8</div>
+        <div class="slot" id="s0">Cuadrado</div>
+        <div class="slot" id="s1">Círculo</div>
+        <div class="slot" id="s2">Trapecio</div>
+        <div class="slot" id="s3">Hexágono</div>
+        <div class="slot" id="s4">Triángulo</div>
+        <div class="slot" id="s5">Rectángulo</div>
+        <div class="slot" id="s6">Rombo</div>
+        <div class="slot" id="s7">Pentágono</div>
     </div>
 
     <div id="log">
@@ -107,47 +107,4 @@ void setup() {
   
   // 1. Configurar Pines
   for (int i = 0; i < numFiguras; i++) {
-    pinMode(pinesFiguras[i], INPUT_PULLUP);
-    estadoAnterior[i] = HIGH;
-  }
-
-  // 2. Levantar Red WiFi (Access Point)
-  Serial.println("\nIniciando AP WiFi...");
-  WiFi.softAP(ssid, password);
-  IPAddress IP = WiFi.softAPIP();
-  Serial.print("Servidor web iniciado. Conéctate a la red 'Caja_Sensorial_AP' y abre en el navegador: http://");
-  Serial.println(IP);
-
-  // 3. Configurar Rutas del Servidor
-  server.on("/", handleRoot);
-  server.on("/api/estado", handleEstado);
-  server.begin();
-
-  // 4. Inicializar DFPlayer
-  if (!myDFPlayer.begin(mySoftwareSerial)) {
-    Serial.println("Error de DFPlayer.");
-  } else {
-    myDFPlayer.volume(20);
-  }
-}
-
-void loop() {
-  // Mantiene vivo el servidor web para escuchar peticiones GET
-  server.handleClient();
-
-  // Lógica de detección física
-  for (int i = 0; i < numFiguras; i++) {
-    bool estadoActual = digitalRead(pinesFiguras[i]);
-
-    if (estadoActual == LOW && estadoAnterior[i] == HIGH) {
-      Serial.print("Figura detectada: ");
-      Serial.println(i + 1);
-      
-      myDFPlayer.play(i + 1);
-      ultimaPista = i + 1; // Guardamos para mostrar en el dashboard
-      
-      delay(50); // Debounce
-    }
-    estadoAnterior[i] = estadoActual;
-  }
-}
+    pinMode(pinesFiguras[i], INPUT_PULL

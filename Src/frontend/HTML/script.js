@@ -1,6 +1,5 @@
-// Fetch API para consultar el estado del hardware asíncronamente
+// Fetch API para actualizar datos cada 300ms sin recargar la página
 setInterval(() => {
-    // Al documentar en GitHub, esta URL asume que el ESP32 emite el JSON en esta ruta
     fetch('/api/estado')
     .then(response => response.json())
     .then(data => {
@@ -8,9 +7,9 @@ setInterval(() => {
         for (let i = 0; i < 8; i++) {
             let elemento = document.getElementById('s' + i);
             if (data.sensores[i] === 1) {
-                elemento.classList.add('active'); // Enciende el neón
+                elemento.classList.add('active'); // Enciende el borde neón
             } else {
-                elemento.classList.remove('active'); // Apaga el neón
+                elemento.classList.remove('active'); // Apaga el borde neón
             }
         }
         
@@ -20,4 +19,4 @@ setInterval(() => {
         }
     })
     .catch(error => console.error('Error de conexión con el microcontrolador:', error));
-}, 300); // Polling cada 300ms para sensación de tiempo real
+}, 300); // Polling cada 300ms
