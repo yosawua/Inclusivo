@@ -2,45 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Caja Sensorial - Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Sensorial | Debugger</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>SISTEMA SENSORIAL</h1>
-        <p>Selecciona una pieza y toca su ranura</p>
-    </header>
+    <h1><span class="status-dot"></span>Debugger Físico</h1>
+    <p>Monitor de telemetría de sensores en tiempo real</p>
+    
+    <div class="grid">
+        <div class="slot" id="s0">Figura 1</div>
+        <div class="slot" id="s1">Figura 2</div>
+        <div class="slot" id="s2">Figura 3</div>
+        <div class="slot" id="s3">Figura 4</div>
+        <div class="slot" id="s4">Figura 5</div>
+        <div class="slot" id="s5">Figura 6</div>
+        <div class="slot" id="s6">Figura 7</div>
+        <div class="slot" id="s7">Figura 8</div>
+    </div>
 
-    <main>
-        <!-- Tablero con los 8 huecos -->
-        <div class="board">
-            <div class="slot" data-shape="cuadrado"></div>
-            <div class="slot" data-shape="triangulo"></div>
-            
-            <div class="slot" data-shape="circulo"></div>
-            <div class="slot" data-shape="rectangulo"></div>
-            
-            <div class="slot" data-shape="trapecio"></div>
-            <div class="slot" data-shape="rombo"></div>
-            
-            <div class="slot" data-shape="hexagono"></div>
-            <div class="slot" data-shape="pentagono"></div>
-        </div>
+    <div id="log">
+        <strong>Sistema de Audio:</strong> <br>
+        <span id="track-info">Esperando interacción...</span>
+    </div>
 
-        <!-- Inventario de piezas -->
-        <div class="pieces-container">
-            <div class="piece cuadrado" data-shape="cuadrado"></div>
-            <div class="piece triangulo" data-shape="triangulo"></div>
-            <div class="piece circulo" data-shape="circulo"></div>
-            <div class="piece rectangulo" data-shape="rectangulo"></div>
-            <div class="piece trapecio" data-shape="trapecio"></div>
-            <div class="piece rombo" data-shape="rombo"></div>
-            <div class="piece hexagono" data-shape="hexagono"></div>
-            <div class="piece pentagono" data-shape="pentagono"></div>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
