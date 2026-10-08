@@ -10,14 +10,15 @@ const apiKey = process.env.ELEVENLABS_API_KEY;
 const voiceId = 'kcQkGnn0HAT2JRDQ4Ljp';
 
 const figuras = [
-    { pista: '001', texto: '¡Cuadrado!' },
-    { pista: '002', texto: '¡Círculo!' },
-    { pista: '003', texto: '¡Trapecio!' },
-    { pista: '004', texto: '¡Hexágono!' },
-    { pista: '005', texto: '¡Triángulo!' },
-    { pista: '006', texto: '¡Rectángulo!' },
-    { pista: '007', texto: '¡Rombo!' },
-    { pista: '008', texto: '¡Pentágono!' }
+    //{ pista: '001', texto: '¡Cuadrado!' },
+    //{ pista: '002', texto: '¡Círculo!' },
+    //{ pista: '003', texto: '¡Trapecio!' },
+    //{ pista: '004', texto: '¡Hexágono!' },
+    //{ pista: '005', texto: '¡Triángulo!' },
+    //{ pista: '006', texto: '¡Rectángulo!' },
+    //{ pista: '007', texto: '¡Rombo!' },
+    //{ pista: '008', texto: '¡Pentágono!' }
+    { pista: '009', texto: '¡Hola! Coloca una figura en el tablero para comenzar.' } // Audio de bienvenida
 ];
 
 // Creamos la carpeta de salida si no existe

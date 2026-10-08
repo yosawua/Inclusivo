@@ -11,7 +11,7 @@ const int numFiguras = 8;
 const int pinesFiguras[numFiguras] = {26, 25, 33, 32, 13, 12, 14, 27};
 bool estadoAnterior[numFiguras];
 
-int ultimaPista = 0; // Para el log del dashboard
+int ultimaPista = 9; // Arrancamos mostrando la pista de bienvenida en el log
 
 // --- CONFIGURACIÓN WIFI Y SERVIDOR WEB ---
 const char* ssid = "Caja_Sensorial_AP";
@@ -19,7 +19,6 @@ const char* password = ""; // Sin contraseña para acceso rápido
 WebServer server(80);
 
 // --- CÓDIGO HTML + CSS + JAVASCRIPT ---
-// Interfaz minimalista oscura con acentos neón
 const char dashboard_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="es">
@@ -58,7 +57,6 @@ const char dashboard_html[] PROGMEM = R"rawliteral(
     </div>
 
     <script>
-        // Fetch API para actualizar datos cada 300ms sin recargar la página
         setInterval(() => {
             fetch('/api/estado')
             .then(response => response.json())
@@ -88,10 +86,8 @@ void handleRoot() {
 }
 
 void handleEstado() {
-  // Construimos un JSON manual con el estado de los 8 pines
   String json = "{\"sensores\":[";
   for (int i = 0; i < numFiguras; i++) {
-    // digitalRead es LOW (0) cuando está presionado. Lo invertimos para el JSON.
     int estado = (digitalRead(pinesFiguras[i]) == LOW) ? 1 : 0;
     json += String(estado);
     if (i < numFiguras - 1) json += ",";
@@ -107,4 +103,47 @@ void setup() {
   
   // 1. Configurar Pines
   for (int i = 0; i < numFiguras; i++) {
-    pinMode(pinesFiguras[i], INPUT_PULL
+    pinMode(pinesFiguras[i], INPUT_PULLUP);
+    estadoAnterior[i] = HIGH;
+  }
+
+  // 2. Levantar Red WiFi (Access Point)
+  Serial.println("\nIniciando AP WiFi...");
+  WiFi.softAP(ssid, password);
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("Servidor web iniciado. Conéctate a la red 'Caja_Sensorial_AP' y abre en el navegador: http://");
+  Serial.println(IP);
+
+  // 3. Configurar Rutas del Servidor
+  server.on("/", handleRoot);
+  server.on("/api/estado", handleEstado);
+  server.begin();
+
+  // 4. Inicializar DFPlayer y Reproducir Bienvenida
+  if (!myDFPlayer.begin(mySoftwareSerial)) {
+    Serial.println("Error de DFPlayer.");
+  } else {
+    myDFPlayer.volume(22); // Volumen ideal (0 a 30)
+    delay(1000); // Pequeña pausa para asegurar arranque del módulo
+    myDFPlayer.play(9); // Reproduce el archivo 009.mp3 de bienvenida al encender
+  }
+}
+
+void loop() {
+  server.handleClient();
+
+  for (int i = 0; i < numFiguras; i++) {
+    bool estadoActual = digitalRead(pinesFiguras[i]);
+
+    if (estadoActual == LOW && estadoAnterior[i] == HIGH) {
+      Serial.print("Figura detectada: ");
+      Serial.println(i + 1);
+      
+      myDFPlayer.play(i + 1);
+      ultimaPista = i + 1; 
+      
+      delay(50); // Debounce
+    }
+    estadoAnterior[i] = estadoActual;
+  }
+}
