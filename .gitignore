@@ -1,0 +1,30 @@
+# Archivos de impresión 3D
+*.gcode
+*.STL
+*.obj
+
+# Archivos temporales de SolidWorks
+~$*.SLDPRT
+~$*.SLDASM
+~$*.SLDDRW
+
+# Archivos de compilación de C/C++
+*.o
+*.elf
+*.bin
+*.hex
+build/
+
+# Si llegas a usar PlatformIO
+.pio/
+
+# Dependencias y entornos de Node.js
+node_modules/
+npm-debug.log
+.env
+*.pem
+secrets.json
+
+# Editores y entornos de desarrollo
+.vscode/
+*.code-workspace
