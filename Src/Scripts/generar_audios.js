@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const fs = require('fs');
 const path = require('path');
 
@@ -18,7 +19,8 @@ const figuras = [
     //{ pista: '006', texto: '¡Rectángulo!' },
     //{ pista: '007', texto: '¡Rombo!' },
     //{ pista: '008', texto: '¡Pentágono!' }
-    { pista: '009', texto: '¡Hola! Coloca una figura en el tablero para comenzar.' } // Audio de bienvenida
+    //{ pista: '009', texto: '¡Hola! Coloca una figura en el tablero para comenzar.' } // Audio de bienvenida
+    { pista: '010', texto: 'SDTBYADSDCUPEDCIYUICDACPMDEP)'}
 ];
 
 // Creamos la carpeta de salida si no existe
